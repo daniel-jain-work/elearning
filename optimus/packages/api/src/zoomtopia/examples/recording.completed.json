@@ -1,0 +1,56 @@
+{
+    "level": 30,
+    "time": 1587759191640,
+    "service": "appboy",
+    "account_id": "PkqUaLZuSdSKch5TvO-9yg",
+    "object": {
+        "uuid": "UIDAV7bmScKsNeMVThUKmw==",
+        "id": 136944375,
+        "account_id": "PkqUaLZuSdSKch5TvO-9yg",
+        "host_id": "6PDBtg2GTOqEqO-fqHSz7Q",
+        "topic": "Scratch Ninja 1 (Apr 14, 2020 - Apr 24, 2020)",
+        "type": 2,
+        "start_time": "2020-04-24T17:55:44Z",
+        "timezone": "America/Los_Angeles",
+        "host_email": "zoomhost+12@createandlearn.us",
+        "duration": 67,
+        "total_size": 697250306,
+        "recording_count": 3,
+        "share_url": "https://createlearn.zoom.us/rec/share/2O1ZBo-v_GZJSa_Wzkz6ZJIhI6fgaaa81iRM_fcPmU27Cjp4RpKnUHfFLuBViGfk",
+        "recording_files": [
+            {
+                "id": "79f4aae2-f45c-4dd4-8a49-4de5504df6f1",
+                "meeting_id": "UIDAV7bmScKsNeMVThUKmw==",
+                "recording_start": "2020-04-24T17:55:45Z",
+                "recording_end": "2020-04-24T19:03:39Z",
+                "file_type": "M4A",
+                "file_size": 27725820,
+                "play_url": "https://createlearn.zoom.us/rec/play/up17c7j5-zk3TNCQ4wSDVqJ9W9TsKqKs1nVL__YNyBvjVSYCZgehb-EXMObxW6cVKvyLUTajYQNoW12_",
+                "download_url": "https://createlearn.zoom.us/rec/download/up17c7j5-zk3TNCQ4wSDVqJ9W9TsKqKs1nVL__YNyBvjVSYCZgehb-EXMObxW6cVKvyLUTajYQNoW12_",
+                "status": "completed",
+                "recording_type": "audio_only"
+            },
+            {
+                "meeting_id": "UIDAV7bmScKsNeMVThUKmw==",
+                "recording_start": "2020-04-24T17:55:45Z",
+                "recording_end": "2020-04-24T19:03:39Z",
+                "file_type": "TIMELINE",
+                "download_url": "https://createlearn.zoom.us/rec/download/edb87cae-4a82-4945-afe4-fedba43a1dea"
+            },
+            {
+                "id": "ab1a166a-baed-4245-a7c7-304a8e2e597a",
+                "meeting_id": "UIDAV7bmScKsNeMVThUKmw==",
+                "recording_start": "2020-04-24T17:55:45Z",
+                "recording_end": "2020-04-24T19:03:39Z",
+                "file_type": "MP4",
+                "file_size": 669524486,
+                "play_url": "https://createlearn.zoom.us/rec/play/7MYsJuiuqGo3SIXA5ASDAPJ8W426fays0SEaq_tYzhqwWndSYFX3ZOdGZ-PcfqsXo833jTu8dtFp0Pbr",
+                "download_url": "https://createlearn.zoom.us/rec/download/7MYsJuiuqGo3SIXA5ASDAPJ8W426fays0SEaq_tYzhqwWndSYFX3ZOdGZ-PcfqsXo833jTu8dtFp0Pbr",
+                "status": "completed",
+                "recording_type": "shared_screen_with_speaker_view"
+            }
+        ],
+        "password": "[Redacted]"
+    },
+    "msg": "receives webhook event recording.completed"
+}

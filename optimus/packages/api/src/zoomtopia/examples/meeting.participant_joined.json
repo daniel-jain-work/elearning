@@ -1,0 +1,23 @@
+{
+  "level": 30,
+  "time": 1587758330721,
+  "service": "appboy",
+  "account_id": "PkqUaLZuSdSKch5TvO-9yg",
+  "object": {
+      "duration": 55,
+      "start_time": "2020-04-24T19:23:01Z",
+      "timezone": "America/Los_Angeles",
+      "topic": "Scratch Ninja 1 (Apr 14, 2020 - Apr 24, 2020)",
+      "id": "323491884",
+      "type": 2,
+      "uuid": "MiiT5KAIS8618l1lTjzcJw==",
+      "participant": {
+          "id": "",
+          "user_id": "16788480",
+          "user_name": "Matthew",
+          "join_time": "2020-04-24T19:58:34Z"
+      },
+      "host_id": "iEqi9ETiRfiQFzflkM_3FA"
+  },
+  "msg": "receives webhook event meeting.participant_joined"
+}

@@ -1,0 +1,11 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "noEmitHelpers": true,
+  "compilerOptions": {
+    "outDir": "dist",
+    "strictFunctionTypes": true,
+    "strictBindCallApply": true,
+    "incremental": true
+  },
+  "include": ["src"]
+}

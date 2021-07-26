@@ -1,0 +1,886 @@
+scalar Date
+scalar DateTime
+
+enum Gender {
+  male
+  female
+  other
+}
+
+enum PromoType {
+  PercentOff
+  AmountOff
+  GiftPass
+}
+
+type AvailableTime {
+  day: Int!
+  times: [[Int]]!
+}
+
+type Zoomhost {
+  id: ID!
+  email: String!
+  name: String!
+  resource: String!
+  sessions(from: DateTime, to: DateTime): [Session]
+}
+
+input TimeRangeInput {
+  from: DateTime
+  to: DateTime
+}
+
+input AvailableTimeInput {
+  day: Int!
+  times: [[Int]]!
+}
+
+input FileInput {
+  name: String!
+  content: String!
+}
+
+input CapabilityInput {
+  courseId: ID!
+  priority: Int!
+}
+
+type Promotion {
+  id: ID!
+  code: String!
+  amount: Float!
+  amountInPackage: Float!
+  description: String
+  type: PromoType
+  createdBy: String
+  expiresAt: DateTime
+  allowance: Int
+  isValid: Boolean
+  isLevelUp: Boolean
+  firstTimerOnly: Boolean
+  counts: Int
+  updatedAt: DateTime
+}
+
+type PromotionList {
+  offset: Int!
+  limit: Int!
+  count: Int!
+  rows: [Promotion]!
+}
+
+type EmailTemplateList {
+  offset: Int!
+  limit: Int!
+  count: Int!
+  rows: [EmailTemplate]!
+}
+
+type Transaction {
+  id: ID!
+  amount: Float!
+  type: String!
+}
+
+type Enrollment {
+  id: ID!
+  attribution: String
+  createdAt: DateTime
+  classId: ID!
+  class: Class
+  creditId: ID
+  credit: Credit
+  promotionId: ID
+  promotion: Promotion
+  studentId: ID!
+  student: Student
+  statusCode: Int
+  status: String
+  attendances: [Attendance]!
+  sale: Transaction
+  refund: Transaction
+  certificateUrl: String
+}
+
+type Attendance {
+  sessionId: ID!
+  session: Session
+  studentId: ID!
+  student: Student
+  statusCode: Int
+  status: String
+  createdAt: DateTime
+}
+
+type Credit {
+  id: ID
+  userId: ID
+  reason: String
+  cents: Int
+  user: User
+  createdAt: DateTime
+  createdBy: String
+}
+
+type Meeting {
+  id: ID!
+  hostId: String
+  joinUrl: String
+  startUrl: String
+  dashboardUrl: String
+  status: String
+}
+
+type Recording {
+  id: ID!
+  status: String
+  playUrl: String
+  downloadUrl: String
+  password: String
+  start: DateTime
+  end: DateTime
+}
+
+type EmailTemplate {
+  id: ID!
+  teacherId: ID
+  name: String!
+  html: String!
+  subject: String!
+  subjectId: ID
+}
+
+type ActivityLog {
+  id: ID!
+  createdAt: DateTime!
+  type: String!
+  identity: String
+  message: String!
+  rawMessage: String!
+}
+
+type Offline {
+  id: ID!
+  vendor: String!
+  memo: String!
+  numberOfRegistrations: Int!
+  transaction: Transaction
+}
+
+type Class {
+  id: ID!
+  active: Boolean
+  startDate: DateTime
+  endDate: DateTime
+  schedules: [[DateTime]]
+  courseId: ID!
+  classroomUrl: String
+  enrollUrl: String
+  numberOfRegistrations: Int
+  numberOfAttendants: Int
+  course: Course
+  dialInLink: String
+  password: String
+  zoomId: String
+  zoomhostId: String
+  zoomhost: Zoomhost
+  offlineId: ID
+  offline: Offline
+  eventId: ID
+  teacherId: ID
+  teacher: Teacher
+  observers: [Teacher]
+  students: [Student]
+  enrollments: [Enrollment]
+  meeting: Meeting
+  recordings: [Recording]
+  sessions: [Session]
+  addons: [Addon]
+  activityLogs: [ActivityLog]
+  threads: [Thread]
+  isCamp: Boolean
+  isWeekly: Boolean
+  notes: [Note]
+  createdBy: String
+  editable: Boolean
+}
+
+type ClassList {
+  offset: Int!
+  limit: Int!
+  count: Int!
+  rows: [Class]!
+}
+
+type Addon {
+  id: ID!
+  idx: Int!
+  classId: ID!
+  class: Class
+  studentId: ID!
+  student: Student
+  createdAt: DateTime
+}
+
+type Seat {
+  id: ID!
+  student: Student!
+  addedOn: Boolean
+  movedOut: Boolean
+  statusCode: Int
+}
+
+type Session {
+  id: ID!
+  idx: Int!
+  startDate: DateTime
+  endDate: DateTime
+  classId: ID!
+  class: Class
+  roster: [Seat]
+  students: [Student]
+  activityLogs: [ActivityLog]
+}
+
+type Affiliate {
+  id: ID!
+  code: String!
+  email: String!
+  contact: String!
+  name: String!
+  rate: Float!
+}
+
+type Course {
+  id: ID!
+  subjectId: ID!
+  subject: Subject
+  name: String
+  description: String
+  capacity: Int
+  duration: Int
+  level: Int
+  grades: [Int]
+  price: Int
+  thumbnail: String
+  info: String
+  recording: String
+  deck: String
+  teachers: [Teacher]
+  offer: Promotion
+  updatedAt: DateTime
+  isRegular: Boolean
+  isTrial: Boolean
+  partnerId: String
+}
+
+type Subject {
+  id: ID!
+  name: String!
+  headline: String
+  blurb: String
+  banner: String
+  thumbnail: String
+  exitLevel: Int
+  courses: [Course]
+  grades: [Int]
+  listingUrl: String
+}
+
+type Nextup {
+  recommendation: Course
+  registration: Class
+}
+
+type Note {
+  id: ID!
+  author: String
+  content: String!
+  createdAt: DateTime!
+}
+
+type Student {
+  id: ID!
+  name: String
+  firstName: String
+  school: String
+  gender: Gender
+  year: Int
+  avatar: String
+  age: Int
+  parent: User
+  webinar: Boolean
+  classes(from: DateTime, to: DateTime, official: Boolean): [Class]
+  enrollments: [Enrollment]
+  addons: [Addon]
+  nextup(classId: ID): Nextup
+  notes: [Note]
+}
+
+type User {
+  id: ID!
+  isOps: Boolean
+  isAdmin: Boolean
+  email: String!
+  phoneNumber: String
+  firstName: String
+  lastName: String
+  fullName: String
+  landing: String
+  source: String
+  city: String
+  state: String
+  country: String
+  timezone: String
+  balance: Float
+  credits: [Credit]
+  children: [Student]
+  referer: User
+  refererId: ID
+  teacherId: ID
+  affiliateId: ID
+  affiliate: Affiliate
+  partnerId: ID
+  partner: Partner
+  createdAt: DateTime
+  lastLogin: DateTime
+  promotions: [Promotion]
+  attended: Boolean
+  paid: Boolean
+}
+
+type UserList {
+  offset: Int!
+  limit: Int!
+  count: Int!
+  rows: [User]!
+}
+
+type Article {
+  id: ID!
+  url: String!
+  title: String
+  domain: String
+  summary: String
+  comments: String
+  image: String
+  grades: [String]
+  areas: [String]
+  createdAt: DateTime
+  published: Boolean
+}
+
+type ArticleList {
+  offset: Int!
+  limit: Int!
+  count: Int!
+  rows: [Article]!
+}
+
+type Capability {
+  id: ID!
+  courseId: ID!
+  priority: Int!
+  course: Course!
+}
+
+type Timeoff {
+  id: ID!
+  start: DateTime!
+  end: DateTime!
+}
+
+type Teacher {
+  id: ID!
+  email: String!
+  firstName: String!
+  lastName: String!
+  fullName: String
+  bio: String
+  avatar: String
+  phoneNumber: String
+  hours: Int
+  availableTime: [AvailableTime]!
+  timeoffs: [Timeoff]
+  sessions(from: DateTime!, to: DateTime!, includeEmptySession: Boolean): [Session]
+  createdAt: DateTime
+  emailTemplates: [EmailTemplate]
+  courses: [Course]
+  capabilities: [Capability]
+  experiences: [String]
+  notes: [Note]
+  timezone: String
+}
+
+type BlogPost {
+  id: ID!
+  slug: String!
+  title: String!
+  content: String!
+  published: Boolean!
+  featured: Boolean
+  thumbnail: String
+  tags: [String]
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type BlogPostList {
+  offset: Int!
+  limit: Int!
+  count: Int!
+  rows: [BlogPost]!
+}
+
+type Project {
+  id: ID!
+  url: String!
+  preview: String!
+  title: String!
+  description: String!
+  student: Student
+  subject: Subject
+  published: Boolean
+  featured: Int
+  updatedAt: DateTime
+  reactions: [Reaction]
+}
+
+type ProjectList {
+  offset: Int!
+  limit: Int!
+  count: Int!
+  rows: [Project]!
+}
+
+type Author {
+  id: ID!
+  name: String!
+  avatar: String
+}
+
+type Reaction {
+  id: ID!
+  userId: ID!
+  user: User
+  content: String!
+  createdAt: DateTime!
+}
+
+type Comment {
+  id: ID!
+  author: Author
+  content: String!
+  createdAt: DateTime!
+  threadId: ID!
+  thread: Thread!
+}
+
+type Thread {
+  id: ID!
+  author: Author
+  content: String!
+  attachments: [String]
+  comments: [Comment]
+  createdAt: DateTime!
+  classId: ID!
+  class: Class!
+}
+
+type CreditList {
+  offset: Int!
+  limit: Int!
+  count: Int!
+  rows: [Credit]!
+}
+
+type FileUploadParams {
+  uploadURL: String!
+  resultURL: String!
+}
+
+type EnrollmentList {
+  offset: Int!
+  limit: Int!
+  count: Int!
+  rows: [Enrollment]!
+}
+
+type ScheduleProposal {
+  id: ID!
+  courseId: ID!
+  schedules: [[DateTime]]!
+  teachers: [Teacher]!
+}
+
+type Partner {
+  id: ID!
+  code: String!
+  email: String!
+  name: String
+  slogan: String
+  summary: String
+  logoImage: String
+  bannerImage: String
+  themeColor: String
+  courses: [Course]
+  updatedAt: DateTime
+}
+
+enum QRCodeAction {
+  QR_STR_SCENE
+  QR_LIMIT_STR_SCENE
+}
+
+type QRCode {
+  image: String!
+  url: String!
+}
+
+type Query {
+  articles(offset: Int, limit: Int): ArticleList
+  partner(id: ID!): Partner
+
+  class(id: ID!): Class
+  classes(
+    offset: Int
+    limit: Int
+    timeRange: TimeRangeInput
+    courseId: ID
+    subjectId: ID
+    teacherId: ID
+    active: Boolean
+    camp: Boolean
+    requireStudents: Boolean
+    requireTeacher: Boolean
+  ): ClassList
+  rescheduleCandidates(courseId: ID!): [Class]
+  scheduleProposals(courseId: ID!, from: DateTime): [ScheduleProposal]
+
+  session(id: ID!): Session
+  addonCandidates(courseId: ID!, idx: Int!): [Session]
+
+  credits(offset: Int, limit: Int): CreditList
+
+  enrollment(id: ID!): Enrollment
+  enrollments(
+    offset: Int
+    limit: Int
+    timeRange: TimeRangeInput
+    paidOnly: Boolean
+  ): EnrollmentList
+
+  promotion(id: ID, code: String): Promotion
+  promotions(offset: Int, limit: Int): PromotionList
+
+  blogPost(id: ID): BlogPost
+  blogPosts(offset: Int, limit: Int): BlogPostList
+
+  projects(offset: Int, limit: Int, subjectId: ID, studentId: ID): ProjectList
+
+  teacher(id: ID!): Teacher
+  teachers(courseId: ID): [Teacher]
+  teacherEmailTemplates(teacherId: ID!, subjectId: ID, courseId: ID): [EmailTemplate]
+  commonEmailTemplates(offset: Int, limit: Int, subjectId: String): EmailTemplateList
+
+  user(id: ID!): User
+  users(offset: Int, limit: Int, referralOnly: Boolean): UserList
+  userSearch(search: String!): [User]
+
+  course(id: ID!): Course
+  subject(id: ID!): Subject
+  subjects(officialOnly: Boolean): [Subject]
+  partners: [Partner]
+
+  zoomhost(id: ID!): Zoomhost
+  zoomhosts: [Zoomhost]
+
+}
+
+type Mutation {
+  upsertCalendarEvent(id: ID!): Class
+  upsertZoomMeeting(id: ID!): Class
+  deleteZoomMeeting(id: ID!): Class
+
+  createClass(
+    courseId: ID!
+    teacherId: ID
+    skipVerification: Boolean
+    dialInLink: String
+    note: String
+    schedules: [[DateTime]]!
+    active: Boolean
+  ): Class
+  updateClassStatus(id: ID!, active: Boolean!): Class
+  updateClass(
+    id: ID!
+    teacherId: ID
+    dialInLink: String
+    skipVerification: Boolean
+    schedules: [[DateTime]]
+  ): Class
+  autoAssignTeacher(classId: ID!, hintId: ID): Teacher
+  removeTeacherFromClass(classId: ID!): Class
+  requestReassign(classId: ID!, reason: String): Class
+  setClassObservers(classId: ID!, teacherIds: [ID]!): Class
+
+  updatePromotion(
+    id: ID!
+    code: String!
+    type: PromoType!
+    amount: Float!
+    amountInPackage: Float!
+    expiresAt: String
+    allowance: Int
+    firstTimerOnly: Boolean
+    isLevelUp: Boolean
+  ): Promotion
+
+  createPromotion(
+    code: String!
+    type: PromoType!
+    amount: Float!
+    amountInPackage: Float!
+    expiresAt: String
+    allowance: Int
+    firstTimerOnly: Boolean
+    isLevelUp: Boolean
+  ): Promotion
+
+  createBlogPost(
+    slug: String!
+    title: String!
+    content: String!
+    published: Boolean!
+    featured: Boolean
+    thumbnail: String
+    tags: [String]
+  ): BlogPost
+
+  updateBlogPost(
+    id: ID!
+    slug: String!
+    published: Boolean!
+    featured: Boolean
+    thumbnail: String
+    title: String!
+    content: String!
+    tags: [String]
+  ): BlogPost
+
+  cancelRegistration(id: ID!): Boolean
+  refundPurchase(transactionId: ID!, enrollmentIds: [ID], amount: Float): Int
+  rescheduleRegistration(id: ID!, classId: ID!): Enrollment
+
+  updateStudentsAttendance(
+    sessionId: ID!
+    students: [ID]!
+    statusCodes: [Int]!
+  ): [Seat]
+
+  updateEnrollmentsStatus(
+    classId: ID!
+    students: [ID]!
+    statusCodes: [Int]!
+  ): [Enrollment]
+
+  sendFollowupEmail(
+    classId: ID!
+    studentId: ID
+    subject: String!
+    html: String!
+    attachments: [FileInput]
+  ): Boolean
+
+  sendClassConfirmationEmail(id: ID!, isReschedule: Boolean): Boolean
+  addStudentToClass(
+    id: ID!
+    classId: ID!
+    amount: Float
+    source: String
+    campaign: String
+  ): Enrollment
+  addStudentToSession(id: ID!, sessionId: ID!): Addon
+  removeStudentFromSession(id: ID!): String
+
+  removeEmailTemplate(id: ID!): Boolean
+  updateEmailTemplate(
+    id: ID
+    teacherId: ID
+    subjectId: ID
+    isCommon: Boolean
+    name: String!
+    html: String!
+    subject: String!
+  ): EmailTemplate
+
+  createTeacher(
+    email: String!
+    firstName: String!
+    lastName: String!
+    password: String!
+    capabilities: [CapabilityInput]
+  ): Teacher
+  editTeacherProfile(
+    id: ID!
+    firstName: String
+    lastName: String
+    master: Boolean
+    bio: String
+    avatar: FileInput
+    phoneNumber: String
+    timezone: String
+    experiences: [String]
+    capabilities: [CapabilityInput]
+  ): Teacher
+  removeTeacher(id: ID!): Boolean
+
+  editStudentProfile(
+    id: ID!
+    name: String
+    school: String
+    gender: Gender
+    year: Int
+  ): Student
+
+  addNoteToClass(classId: ID!, content: String!): Class
+  addNoteToStudent(studentId: ID!, content: String!): Student
+  addNoteToTeacher(teacherId: ID!, content: String!): Teacher
+  removeNote(id: ID!): Boolean
+
+  updateTeacherAvailability(
+    teacherId: ID!
+    availabilities: [AvailableTimeInput]!
+  ): Teacher
+
+  setTeacherTimeOff(teacherId: ID!, start: DateTime!, end: DateTime!): Teacher
+  updateTeacherTimeOff(id: ID!, start: DateTime!, end: DateTime!): Timeoff
+  removeTeacherTimeOff(id: ID!): Teacher
+  setTeacherBlackoutDate(teacherId: ID!, date: DateTime): Teacher
+  clearTeacherBlackoutDate(teacherId: ID!, date: DateTime): Teacher
+
+  archiveArticle(id: ID!): Article
+  publishArticle(
+    id: ID!
+    url: String!
+    title: String!
+    summary: String!
+    comments: String
+    image: String
+    grades: [String]
+    areas: [String]
+  ): Article
+
+  getFileUploadUrl(mime: String!, filepath: String!): FileUploadParams
+  generateQRCode(action: QRCodeAction!, scene: String!): QRCode
+
+  addThread(
+    classId: ID!
+    teacherId: ID!
+    content: String!
+    attachments: [FileInput]
+  ): Thread
+  deleteThread(id: ID!): Boolean
+  addComment(threadId: ID!, teacherId: ID!, content: String!): Comment
+  deleteComment(id: ID!): Boolean
+
+  createCourse(
+    id: ID!
+    subjectId: ID!
+    level: Int!
+    name: String!
+    thumbnail: String!
+    capacity: Int!
+    duration: Int!
+    price: Int!
+    grades: [Int]!
+    description: String!
+    info: String
+    recording: String
+    deck: String
+  ): Course
+
+  updateCourse(
+    id: ID!
+    level: Int
+    name: String
+    thumbnail: String
+    capacity: Int
+    duration: Int
+    price: Int
+    grades: [Int]
+    description: String
+    info: String
+    recording: String
+    deck: String
+  ): Course
+
+  updateSubject(
+    id: ID!
+    name: String!
+    headline: String
+    blurb: String
+    banner: String
+    thumbnail: String
+    exitLevel: Int
+  ): Subject
+
+  createPartner(
+    email: String!
+    name: String!
+    slogan: String!
+    summary: String!
+    logoImage: String
+    bannerImage: String
+    themeColor: String
+  ): Partner
+
+  updatePartner(
+    id: ID!
+    email: String
+    name: String
+    slogan: String
+    summary: String
+    logoImage: String
+    bannerImage: String
+    themeColor: String
+    courseIds: [ID]
+  ): Partner
+
+  updateProject(
+    id: ID!
+    url: String
+    description: String
+    title: String
+    preview: String
+    published: Boolean
+    featured: Int
+    subjectId: String
+  ): Project
+
+  # account
+  tagUserGeolocation(id: ID!): User
+  changePassword(id: ID!, password: String!, previous: String): Boolean
+  userLogin(
+    email: String!
+    password: String!
+    timezone: String
+    teacherOnly: Boolean
+    internalOnly: Boolean
+  ): User
+
+  # internal ops
+  attributePurchase(id: ID!): Class
+  issueCredit(userId: ID!, cents: Int!, reason: String!): Credit
+  backfillReferral(userId: ID!, refererEmail: String!): User
+  createBackfill(id: ID!): Class
+  mergeStudentRecords(source: ID!, target: ID!): Student
+  takeDownConflicts(id: ID!): Boolean
+  syncWorkingHours: [Teacher]
+}
+
+schema {
+  query: Query
+  mutation: Mutation
+}

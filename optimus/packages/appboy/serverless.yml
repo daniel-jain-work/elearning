@@ -1,0 +1,58 @@
+service: appboy
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  region: us-west-2
+  stage: ${opt:stage,'local'}
+  iamManagedPolicies:
+    - "arn:aws:iam::aws:policy/AmazonS3FullAccess"
+    - "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+    - "arn:aws:iam::aws:policy/AmazonSESFullAccess"
+    - "arn:aws:iam::aws:policy/AmazonSNSFullAccess"
+  vpc:
+    securityGroupIds:
+      - sg-ff22e980
+    subnetIds:
+      - subnet-7f2c6b06
+      - subnet-ec8feea7
+      - subnet-77e4b52d
+package:
+  exclude:
+    - config/local.json
+    - src/**
+    - "**/tsconfig.tsbuildinfo"
+    - node_modules/@types/**
+    - node_modules/**/*.map
+resources:
+  Resources:
+    DispatcherLogGroup:
+      Type: AWS::Logs::LogGroup
+      Properties:
+        RetentionInDays: 5
+    MailmanLogGroup:
+      Type: AWS::Logs::LogGroup
+      Properties:
+        RetentionInDays: 30
+functions:
+  dispatcher:
+    handler: dist/dispatcher/index.handler
+    description: Respond to Cloudwatch Events
+    timeout: 300
+    events:
+      - cloudwatchEvent:
+          event:
+            source:
+              - api.${opt:stage}
+              - webportal.${opt:stage}
+            detail-type:
+              - DOWNLOAD_RECORDING
+              - ACCOUNT_CREATED
+              - TRIAL_ATTENDED
+              - CLASS_CREATED
+              - CLASS_UPDATED
+              - CLASS_ENROLLED
+  mailman:
+    handler: dist/mailman/index.handler
+    description: Send scheduled reminders and followups emails
+    timeout: 120

@@ -1,0 +1,5 @@
+{
+  "type": "SCHEDULED_REMINDERS",
+  "ts": "2020-02-13T00:30:00Z",
+  "options": ["TrialCouponExpiring"]
+}

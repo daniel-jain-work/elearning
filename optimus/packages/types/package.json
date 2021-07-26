@@ -1,0 +1,6 @@
+{
+  "name": "@cl/types",
+  "version": "1.11.9",
+  "private": true,
+  "main": "index.ts"
+}

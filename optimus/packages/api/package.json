@@ -1,0 +1,63 @@
+{
+  "name": "api",
+  "version": "1.2.4",
+  "description": "Graphql API",
+  "author": "Yuanzong Qiu <yz@createandlearn.us>",
+  "license": "UNLICENSED",
+  "private": true,
+  "scripts": {
+    "start": "node dist/index.js",
+    "test": "NODE_ENV=test jest --runInBand",
+    "lint": "eslint src --ext .ts",
+    "watch": "NODE_ENV=development tsnd --respawn --transpile-only src/index.ts",
+    "predeploy": "tsc",
+    "deploy": "eb deploy --label api-$npm_package_version-$(date +%s)",
+    "deploy:beta": "yarn deploy beta-graph"
+  },
+  "dependencies": {
+    "@sendgrid/client": "^7.2.1",
+    "@sendgrid/helpers": "^7.2.0",
+    "@sendgrid/mail": "^7.2.1",
+    "@sentry/node": "^5.19.2",
+    "apollo-server-express": "^2.15.1",
+    "aws-sdk": "^2.699.0",
+    "bottleneck": "^2.19.5",
+    "braintree": "^2.23.0",
+    "cheerio": "^1.0.0-rc.3",
+    "cl-common": "^2.1.0",
+    "cl-models": "^1.4.0",
+    "compression": "^1.7.4",
+    "config": "^3.3.1",
+    "data-urls": "^2.0.0",
+    "express": "^4.17.1",
+    "gaxios": "^3.0.4",
+    "googleapis": "^54.0.0",
+    "graphql": "^14.7.0",
+    "graphql-iso-date": "^3.6.1",
+    "jsonwebtoken": "^8.5.1",
+    "libphonenumber-js": "^1.7.54",
+    "lodash": "^4.17.15",
+    "luxon": "^1.24.1",
+    "mime-types": "^2.1.27",
+    "mysql2": "^2.1.0",
+    "nanoid": "^3.1.10",
+    "nodemailer": "^6.4.10",
+    "pino": "^6.3.2",
+    "sequelize": "^6.3.3",
+    "xss": "^1.0.7"
+  },
+  "devDependencies": {
+    "@types/braintree": "^2.22.3",
+    "@types/nodemailer": "^6.4.0",
+    "supertest": "^4.0.2",
+    "ts-node-dev": "^1.0.0-pre.51"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "verbose": true,
+    "testMatch": [
+      "**/__tests__/**/*.spec.ts"
+    ]
+  }
+}

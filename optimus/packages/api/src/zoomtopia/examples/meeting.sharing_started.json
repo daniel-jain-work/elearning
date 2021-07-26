@@ -1,0 +1,29 @@
+{
+    "level": 30,
+    "time": 1587758377910,
+    "service": "appboy",
+    "object": {
+        "uuid": "MiiT5KAIS8618l1lTjzcJw==",
+        "participant": {
+            "id": "",
+            "user_id": "16788480",
+            "user_name": "Matthew",
+            "sharing_details": {
+                "link_source": "",
+                "file_link": "",
+                "source": "",
+                "date_time": "2020-04-24T19:59:21Z",
+                "content": "application"
+            }
+        },
+        "id": "323491884",
+        "type": 2,
+        "topic": "Scratch Ninja 1 (Apr 14, 2020 - Apr 24, 2020)",
+        "host_id": "iEqi9ETiRfiQFzflkM_3FA",
+        "duration": 55,
+        "start_time": "2020-04-24T19:23:01Z",
+        "timezone": "America/Los_Angeles"
+    },
+    "account_id": "PkqUaLZuSdSKch5TvO-9yg",
+    "msg": "receives webhook event meeting.sharing_started"
+}

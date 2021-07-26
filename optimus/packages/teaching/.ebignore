@@ -1,0 +1,14 @@
+node_modules/
+config/local.json
+.vscode
+.git
+*.iml
+
+# OS metadata
+.DS_Store
+Thumbs.db
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml

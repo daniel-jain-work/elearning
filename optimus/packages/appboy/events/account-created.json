@@ -1,0 +1,7 @@
+{
+  "detail-type": "ACCOUNT_CREATED",
+  "detail": {
+    "id": "3f952a32-3bac-4e04-82cd-4e7d82ce0fbb",
+    "email": "yz@createandlearn.us"
+  }
+}

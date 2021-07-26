@@ -1,0 +1,33 @@
+{
+  "name": "appboy",
+  "version": "1.8.4",
+  "description": "single purpose lambda functions",
+  "author": "Yuanzong Qiu <yz@createandlearn.us>",
+  "license": "UNLICENSED",
+  "private": true,
+  "scripts": {
+    "clean": "rm -rf dist",
+    "prepare": "tsc",
+    "pretest": "cd ../cl-models; yarn pretest",
+    "lint": "eslint src --ext .ts",
+    "predeploy": "yarn clean && tsc",
+    "deploy": "sls deploy -s production",
+    "invoke:mailman": "tsc -b && sls invoke local -s local -f mailman -p",
+    "invoke:dispatcher": "tsc -b && sls invoke local -s local -f dispatcher -p"
+  },
+  "dependencies": {
+    "@sendgrid/helpers": "^7.2.0",
+    "@sendgrid/mail": "^7.2.1",
+    "@sentry/node": "^5.19.2",
+    "bottleneck": "^2.19.5",
+    "cl-common": "^2.1.0",
+    "cl-models": "^1.4.0",
+    "config": "^3.3.1",
+    "gaxios": "^3.0.4",
+    "lodash": "^4.17.15",
+    "luxon": "^1.24.1",
+    "mysql2": "^2.1.0",
+    "pino": "^6.3.2",
+    "sequelize": "^6.3.3"
+  }
+}

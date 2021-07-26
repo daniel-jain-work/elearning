@@ -1,0 +1,18 @@
+{
+    "level": 30,
+    "time": 1587759209276,
+    "service": "appboy",
+    "account_id": "PkqUaLZuSdSKch5TvO-9yg",
+    "object": {
+        "duration": 55,
+        "start_time": "2020-04-24T19:00:38Z",
+        "timezone": "America/Los_Angeles",
+        "end_time": "2020-04-24T20:13:25Z",
+        "topic": "Scratch Ninja 2 (Apr 17, 2020 - Apr 28, 2020)",
+        "id": "212951769",
+        "type": 2,
+        "uuid": "gm3r3xHhQLiKeVXH9DvxEg==",
+        "host_id": "htphSupITcuc4vyYtm7kRg"
+    },
+    "msg": "receives webhook event meeting.ended"
+}

@@ -1,0 +1,22 @@
+{
+    "level": 30,
+    "time": 1587758699327,
+    "service": "appboy",
+    "account_id": "PkqUaLZuSdSKch5TvO-9yg",
+    "object": {
+        "duration": 55,
+        "start_time": "2020-04-24T18:58:38Z",
+        "timezone": "America/Los_Angeles",
+        "topic": "Scratch Ninja 3 - April 14, 2020, 12:00 PM PDT",
+        "id": "603904456",
+        "type": 8,
+        "uuid": "/LLB2T2HTi6liA0Vn5kdug==",
+        "participant": {
+            "user_id": "16782336",
+            "leave_time": "2020-04-24T20:04:23Z",
+            "user_name": "nishka"
+        },
+        "host_id": "t7L9WQfiTBG8w81t-FPkpw"
+    },
+    "msg": "receives webhook event meeting.participant_left"
+}
